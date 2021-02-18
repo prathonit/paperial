@@ -1,36 +1,33 @@
 {
-    "env": {
-        "browser": true,
-        "es2021": true
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended"
+  ],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
     },
-    "extends": [
-        "eslint:recommended",
-        "plugin:react/recommended",
-        "prettier",
-        "eslint-config-prettier"
-    ],
-    "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true
-        },
-        "ecmaVersion": 12,
-        "sourceType": "module"
-    },
-    "plugins": ["react", "prettier"],
-    "rules": {
-        "indent": ["error", "tab"],
-        "linebreak-style": ["error", "unix"],
-        "quotes": ["error", "single"],
-        "semi": ["error", "always"],
-        // suppress errors for missing 'import React' in files
-        "react/react-in-jsx-scope": "off",
-        // allow jsx syntax in js files (for next.js project)
-        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-        "prettier/prettier": ["error"]
-    },
-    "settings": {
-        "react": {
-            "version": "detect"
-        }
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "plugins": ["react"],
+  "rules": {
+    "indent": ["error", "tab"],
+    "linebreak-style": ["error", "unix"],
+    "quotes": ["error", "single"],
+    "semi": ["error", "always"],
+    // suppress errors for missing 'import React' in files
+    "react/react-in-jsx-scope": "off",
+    // allow jsx syntax in js files (for next.js project)
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
     }
+  }
 }
