@@ -24,7 +24,8 @@
     "client": "react-scripts start",
     "dev": "concurrently \"yarn run server\" \"yarn run client\"",
     "lint": "eslint --fix server/**/*.js src/**/*.js",
-    "get-started": "yarn install && cd server && npm install"
+    "get-started": "yarn install && cd server && npm install",
+    "setup-db": "cd server/mysql && node _index.js"
   },
   "browserslist": {
     "production": [

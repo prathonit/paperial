@@ -1,5 +1,5 @@
 const pool = require('./_pool');
 
 module.exports = {
-    pool: pool
+	pool: pool
 };
