@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Form, FormGroup, Input, Spinner } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import agent from '../agent.js';
+import { UserAgent } from '../agent.js';
 import { useAlert } from 'react-alert';
 
 const Register = () => {
@@ -13,7 +13,7 @@ const Register = () => {
         if (isLoading) {
             try {
                 if (handleValidation(formData)) {
-                    let res = await agent('/secure/user/signup', formData, 'post');
+                    let res = await UserAgent.register(formData);
                     localStorage.setItem('accessToken', res.data.accessToken);
                     alert.show('Registered successfully!');
                     window.location = '/home';
@@ -25,9 +25,8 @@ const Register = () => {
         }
     }, [isLoading]);
     const handleInput = (e) => {
-        let fData = formData;
-        fData[e.target.name] = e.target.value;
-        setFormData(fData);
+        formData[e.target.name] = e.target.value;
+        setFormData(formData);
     };
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -95,7 +94,7 @@ const Register = () => {
                     </FormGroup>
                     <FormGroup>
                         <Button color="success" onClick = {handleSubmit}>
-                            <Spinner color = 'dark' size = 'sm' style = {{display : (isLoading) ? 'block' : 'none'}} />
+                            <Spinner color = 'dark' size = 'sm' hidden = {!isLoading} />
                             {(!isLoading) ? 'Register' : ''}
                         </Button>
                     </FormGroup>

@@ -24,19 +24,19 @@ module.exports.user_get_profile = async (req, res, next) => {
 };
 
 module.exports.user_update_profile = async (req, res, next) => {
-	let u_id = req.body.uid;
+	let u_id = req.body.u_id;
 	let profile = {};
 	profile.u_name = req.body.u_name;
-	profile.u_mail = req.body.u_mail;
 	profile.u_mob = req.body.u_mob;
+	profile.u_role = req.body.u_role;
 	try {
 		let sql = 'UPDATE user SET ? WHERE u_id = ?';
-		let params = [u_id];
+		let params = [profile, u_id];
 		await database.call(sql, params);
+		response.created(res, {}, 'Profile updated');
 	} catch (e) {
 		return next(e);
 	}
-    
 };
 
 module.exports.user_delete_profile = async (req, res, next) => {
@@ -44,6 +44,29 @@ module.exports.user_delete_profile = async (req, res, next) => {
 	let sql = 'DELETE FROM user WHERE u_id = ? LIMIT 1';
 	try {
 		await database.call(sql, []);
+	} catch (e) {
+		return next(e);
+	}
+};
+
+module.exports.user_change_pwd = async (req, res, next) => {
+	let u_id = req.body.u_id;
+	let c_pwd = req.body.c_pwd;
+	let n_pwd = req.body.n_pwd;
+	let sql = 'SELECT l_pwd FROM authentication WHERE l_id = ? LIMIT 1';
+	let params = [u_id];
+	try {
+		let result = await database.call(sql, params);
+		let passwordMatch = await crypt.comparePassword(c_pwd, result[0].l_pwd);
+		if (passwordMatch) {
+			let hashedPwd = await crypt.hashPassword(n_pwd);
+			sql = 'UPDATE authentication SET ? WHERE l_id = ?';
+			params = [{l_pwd: hashedPwd}, u_id];
+			await database.call(sql, params);
+			response.created(res, {}, 'Password changed');
+		} else {
+			throw createError(400, 'Incorrect password, please try again');
+		}
 	} catch (e) {
 		return next(e);
 	}
@@ -64,7 +87,6 @@ module.exports.user_signup_profile = async (req, res, next) => {
 		let params = [user_profile];
 		await database.call(sql, params);
 		let pwd = req.body.pwd;
-		console.log(pwd);
 		let hashedPwd = await crypt.hashPassword(pwd);
 		sql = 'INSERT INTO authentication SET ?';
 		params = [{

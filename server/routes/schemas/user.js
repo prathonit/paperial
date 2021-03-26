@@ -8,7 +8,9 @@ const schema = {
 	u_mob: Joi.string().min(10).required(),
 	u_fine: Joi.number().min(0).required(),
 	u_role: Joi.string().min(2),
-	pwd: Joi.string().min(4).required()
+	pwd: Joi.string().min(3).required(),
+	c_pwd: Joi.string().min(3).required(),
+	n_pwd: Joi.string().min(3).required()
 };
 
 module.exports = schema;

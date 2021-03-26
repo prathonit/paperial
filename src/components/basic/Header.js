@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
 	Collapse,
 	Navbar,
@@ -69,19 +70,19 @@ const HeaderUserLoggedIn = () => {
 				<Collapse isOpen={isOpen} navbar>
 					<Nav className="mr-auto" navbar>
 						<NavItem>
-							<NavLink href="/login/"> <IoBookOutline /> Books</NavLink>
+							<NavLink href="/home/"> <IoBookOutline /> Books</NavLink>
 						</NavItem>
 						<NavItem>
-							<NavLink href="/register/"> <IoSearch /> Search </NavLink>
+							<NavLink href="/search/"> <IoSearch /> Search </NavLink>
 						</NavItem>
 						<NavItem>
-							<NavLink href="/admin-login/"> <IoBagOutline /> Orders</NavLink>
+							<NavLink href="/orders/"> <IoBagOutline /> Orders</NavLink>
 						</NavItem>
 						<NavItem>
-							<NavLink href="/admin-login/"> <IoColorWandOutline /> Magic suggestions</NavLink>
+							<NavLink href="/magic/"> <IoColorWandOutline /> Magic suggestions</NavLink>
 						</NavItem>
 						<NavItem>
-							<NavLink href="/admin-login/"> <IoTrophyOutline /> Leaderboard</NavLink>
+							<NavLink href="/leaderboard/"> <IoTrophyOutline /> Leaderboard</NavLink>
 						</NavItem>
 					</Nav>
 					<Nav className="mr-right" navbar>
@@ -90,13 +91,17 @@ const HeaderUserLoggedIn = () => {
 								Options
 							</DropdownToggle>
 							<DropdownMenu right>
-								<DropdownItem>
-									<IoPersonSharp /> Profile
-								</DropdownItem>
+								<Link to = '/user/profile'>
+									<DropdownItem>
+										<IoPersonSharp /> Profile
+									</DropdownItem>
+								</Link>
 								<DropdownItem divider />
-								<DropdownItem>
-									<IoLockClosedOutline /> Change password
-								</DropdownItem>
+								<Link to = '/user/change-password'>
+									<DropdownItem>
+										<IoLockClosedOutline /> Change password
+									</DropdownItem>
+								</Link>
 								<DropdownItem divider />
 								<DropdownItem onClick = {logout}>
 									Logout <IoLogOutOutline />

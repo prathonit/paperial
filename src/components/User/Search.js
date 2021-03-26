@@ -3,22 +3,27 @@ import { Button, Form, FormGroup, Input, Spinner } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { UserAgent } from '../../agent.js';
 import { useAlert } from 'react-alert';
-import { IoArrowBackSharp } from 'react-icons/io5';
+import {
+    IoArrowBackSharp,
+    IoSearchOutline
+} from 'react-icons/io5';
 
-const ChangePassword = () =>  {
+const Profile = () =>  {
     const [isLoading, setIsLoading] = useState(false);
     const [formData, setFormData] = useState({});
+    const [isEditing, setIsEditing] = useState(false);
     const alert = useAlert();
 
     useEffect(async () => {
         if (isLoading) {
             try {
                 if (handleValidation(formData)) {
-                    let res = await UserAgent.changePassword(formData);
+                    let res = await UserAgent.update(formData);
                     alert.show(res.msg);
+                    setIsEditing(false);
                 }
             } catch (e) {
-                alert.show(e.response.data.msg);
+                alert.show(e.response.msg);
             }
             setIsLoading(false);
         }
@@ -37,16 +42,12 @@ const ChangePassword = () =>  {
         }
     };
     const handleValidation = (data) => {
-        if (!data.c_pwd || data.c_pwd.length < 3) {
-            alert.show('Invalid password');
+        if (!data.u_name || data.u_name.length < 3) {
+            alert.show('Invalid name');
             return false;
         }
-        if (!data.n_pwd || data.n_pwd.length < 3) {
-            alert.show('Invalid password');
-            return false;
-        }
-        if (data.n_pwd !== data.nc_pwd) {
-            alert.show('New passwords do not match');
+        if (!data.u_mob || data.u_mob.length < 10) {
+            alert.show('Invalid phone no');
             return false;
         }
         return true;
@@ -55,26 +56,21 @@ const ChangePassword = () =>  {
         <div>
             <div className = 'container' style = {styles.formContainer}>
                 <Form onKeyDown = {handleKeySubmit}>
-                    <h2>Change password</h2>
+                    <h2><IoSearchOutline /> Search</h2>
                     <br/>
                     <FormGroup>
-                        <Input type="password" name="c_pwd" id="c_pwd" onChange = { handleInput } placeholder="Current password"/>
-                    </FormGroup>
-                    <FormGroup>
-                        <Input type="password" name="n_pwd" id="n_pwd" onChange = {handleInput} placeholder="New password"/>
-                    </FormGroup>
-                    <FormGroup>
-                        <Input type="password" name="nc_pwd" id="nc_pwd" onChange = {handleInput} placeholder="Confirm new password"/>
+                        <Input type='text' name='search_query' id='search_query' onChange = {handleInput} placeholder = 'Start typing ...' />
                     </FormGroup>
                     <FormGroup>
                         <Button color="success" onClick = {handleSubmit}>
-                            <Spinner color = 'dark' size = 'sm' style = {{display : (isLoading) ? 'block' : 'none'}} />
-                            {(!isLoading) ? 'Change password' : ''}
+                            <Spinner color = 'dark' size = 'sm' hidden = {!isLoading} />
+                            {(!isLoading) ? 'Search' : ''}
                         </Button>
                     </FormGroup>
                     <hr/>
                     <Link to='/home'> <IoArrowBackSharp /> Go back </Link>
                 </Form>
+                <br/>
             </div>
         </div>
     );
@@ -87,4 +83,4 @@ let styles = {
     }
 };
 
-export default ChangePassword;
+export default Profile;

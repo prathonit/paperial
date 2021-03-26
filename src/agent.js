@@ -21,10 +21,10 @@ export const isLoggedIn = () => {
 };
 
 const includeToken = () => {
-    let accessToken = localStorage.getItem('accessToken') || '';
+    let accessToken = `token ${localStorage.getItem('accessToken')}` || '';
     return {
         headers: {
-            authorization: accessToken
+            'Authorization': accessToken
         }
     };
 };
@@ -32,11 +32,26 @@ const includeToken = () => {
 const agent = async (path, data = {}, type = 'get') => {
     let res = null;
     if (type === 'get') {
-        res = await axios.get(`${API_URL}${path}`, data, includeToken());
+        let config = includeToken();
+        config.params = data;
+        res = await axios.get(`${API_URL}${path}`, config);
     } else {
-        res = await axios.post(`${API_URL}${path}`, data, includeToken());
+        let config = includeToken();
+        res = await axios.post(`${API_URL}${path}`, data, config);
     }
     return res.data;
 };
 
 export default agent;
+
+export const AuthAgent = {
+    loginUser: data => agent('/auth/user', data, 'post'),
+    loginAdmin: data => agent('/auth/admin', data, 'post') 
+};
+
+export const UserAgent = {
+    get: data => agent('/secure/user/profile', data, 'get'),
+    update: data => agent('/secure/user/profile', data, 'post'),
+    register: data => agent('/secure/user/signup', data, 'post'),
+    changePassword: data => agent('/secure/user/change-password', data, 'post')
+};

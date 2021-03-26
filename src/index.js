@@ -6,8 +6,6 @@ import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { transitions, positions, Provider as AlertProvider } from 'react-alert';
 import AlertTemplate from 'react-alert-template-basic';
-import Header from './components/basic/Header.js'; 
-import Footer from './components/basic/Footer.js'; 
 
 const options = {
 	// you can also just use 'bottom center'
@@ -21,11 +19,7 @@ const options = {
 ReactDOM.render(
 	<React.StrictMode>
 		<AlertProvider template={AlertTemplate} {...options}>
-			<Header />
-			<div className = 'wrapper'>
-				<App />
-			</div>
-			<Footer />
+			<App />
 		</AlertProvider>
 	</React.StrictMode>,
 	document.getElementById('root')

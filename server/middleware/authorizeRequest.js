@@ -12,8 +12,8 @@ const authorizeRequest = (role = 'user', whitelist = []) => {
 		if (!req.headers.authorization) {
 			return next(createError(401, 'Access token not found'));
 		}
-		let accessToken = req.headers.authorization;
 		try {
+			let accessToken = req.headers.authorization.split(' ')[1];
 			let decodedAccessToken = jwt.verify(accessToken, config.JWT_SECRET);
 			let claimedRole = decodedAccessToken.role || '';
 			if (claimedRole === role) {

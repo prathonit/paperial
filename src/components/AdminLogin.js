@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Form, FormGroup, Input, Spinner } from 'reactstrap';
 import { useHistory } from 'react-router-dom';
-import agent from '../agent.js';
+import { AuthAgent } from '../agent.js';
 import { useAlert } from 'react-alert';
 
 const AdminLogin = () =>  {
@@ -14,21 +14,21 @@ const AdminLogin = () =>  {
         if (isLoading) {
             try {
                 if (handleValidation(formData)) {
-                    let res = await agent('/auth/admin', formData, 'post');
+                    let res = await AuthAgent.loginAdmin(formData);
                     localStorage.setItem('accessToken', res.data.accessToken);
                     alert.show('Logged in successfully');
                     history.push('/dashboard');
                 }
             } catch (e) {
+                console.log(e);
                 alert.show('Incorrect username/password');
             }
             setIsLoading(false);
         }
     }, [isLoading]);
     const handleInput = (e) => {
-        let fData = formData;
-        fData[e.target.name] = e.target.value;
-        setFormData(fData);
+        formData[e.target.name] = e.target.value;
+        setFormData(formData);
     };
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -64,7 +64,7 @@ const AdminLogin = () =>  {
                     </FormGroup>
                     <FormGroup>
                         <Button color="success" onClick = {handleSubmit}>
-                            <Spinner color = 'dark' size = 'sm' style = {{display : (isLoading) ? 'block' : 'none'}} />
+                            <Spinner color = 'dark' size = 'sm' hidden = {!isLoading} />
                             {(!isLoading) ? 'Login' : ''}
                         </Button>
                     </FormGroup>
