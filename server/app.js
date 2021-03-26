@@ -2,7 +2,9 @@ const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const logger = require('morgan');
-const dotenv = require('dotenv').config();
+const reqlib = require('app-root-path').require;
+const handler = reqlib('utils/response').handler;
+const cors = require('cors');
 
 const app = express();
 
@@ -13,6 +15,7 @@ app.use(
 		extended: false,
 	})
 );
+app.use(cors());
 
 app.use('/', require('./routes/index.js'));
 
@@ -23,13 +26,9 @@ app.use((req, res, next) => {
 
 // error handler
 app.use((err, req, res, next) => {
-	// set locals, only providing error in development
-	res.locals.message = err.message;
-	res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-	// render the error json
-	res.status(err.status || 500);
-	res.json(res.locals);
+	console.log(err);
+	handler(res, err);
+	
 });
 
 module.exports = app;

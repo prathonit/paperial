@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+// Author: Prathmesh Srivastava (prathonit)
+// 24-03-2021 , All rights reserved 
 
-function App() {
+import React from 'react';
+import { BrowserRouter as Router, Switch } from 'react-router-dom';
+import PublicRoute from './PublicRoute.js';
+import PrivateRoute from './PrivateRoute.js';
+import Index from './components/Index.js';
+import Login from './components/Login.js';
+import Register from './components/Register.js';
+import AdminLogin from './components/AdminLogin';
+import Home from './components/User/Home.js';
+
+export default function App() {
 	return (
-		<div className="App">
-			<header className="App-header">
-				<img src={logo} className="App-logo" alt="logo" />
-				<p>
-                    Edit <code>src/App.js</code> and save to reload.
-				</p>
-				<a
-					className="App-link"
-					href="https://reactjs.org"
-					target="_blank"
-					rel="noopener noreferrer"
-				>
-                    Learn React
-				</a>
-			</header>
-		</div>
+		<Router>
+				<Switch>
+					<PublicRoute component = {Index} path = "/" exact />
+					<PublicRoute component = {Login} path = '/login' exact />
+					<PublicRoute component = {Register} path = '/register' exact />
+					<PublicRoute component = {AdminLogin} path='/admin-login' exact />
+					<PrivateRoute component = {Home} path = '/home' exact />
+				</Switch>
+		</Router>
 	);
 }
 
-export default App;

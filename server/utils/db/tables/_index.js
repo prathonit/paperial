@@ -1,10 +1,11 @@
+const config = require('../../../config.js');
 const fs = require('fs');
 const mysql = require('mysql');
 
-const username = 'pks';
-const password = 'pwdpwd';
-const dbName = 'paperial';
-const hostName = 'localhost';
+const username = config.DB_USER;
+const password = config.DB_PASSWORD;
+const dbName = config.DB_NAME;
+const hostName = config.DB_HOST;
 
 const main = async (username, password, dbName, hostName) => {
 	const con = mysql.createConnection({

@@ -1,10 +1,10 @@
 const express = require('express');
-
 const router = express.Router();
 
-/* GET home page. */
-router.get('/', (req, res, next) => {
-	res.status(200).json({ id: 2019 });
-});
+/* List all routes here */
+router.use('/auth', require('./auth.js'));
+
+/* Secure routes */
+router.use('/secure', require('./secureRoutes'));
 
 module.exports = router;

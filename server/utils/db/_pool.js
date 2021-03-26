@@ -1,4 +1,5 @@
-const config = require('app-root-path').resolve('/config.js');
+const reqlib = require('app-root-path').require;
+const config = reqlib('/config.js');
 const mysql = require('mysql');
 
 const pool = mysql.createPool({
