@@ -3,6 +3,6 @@ CREATE TABLE `book` (
 	`b_name` VARCHAR(128) NOT NULL,
 	`b_author` VARCHAR(128),
 	`b_genre` VARCHAR(128) NOT NULL,
-	`b_desc` VARCHAR(512),
+	`b_desc` TEXT,
 	PRIMARY KEY (`b_id`)
 ) ENGINE=InnoDB;

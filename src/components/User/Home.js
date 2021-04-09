@@ -6,23 +6,11 @@ import {
     Toast, 
     ToastHeader, 
     ToastBody, 
-    Badge,
-    // Media
+    Badge
 } from 'reactstrap';
-import BookFeed from './user_components/BookFeed.js';
+import BookFeed from './user_components/BookFeed';
 import { GrFilter } from 'react-icons/gr';
 import { ImSortAmountDesc } from 'react-icons/im';
-let data = {
-    b_id: 120,
-    b_name: 'Sherlock Holmes',
-    b_author: 'Sir Arther Conan Doyle',
-    b_rating: 4,
-    b_review_count: 5,
-    b_genre: 'fiction',
-    b_desc: 'Sherlock Holmes the famous detective despite the popular belief was not real but was just a fiction. Such was the beauty of this work.',
-    b_img: 'https://picsum.photos/200',
-    b_avail: 'In use'
-};
 
 const Home = () => {
     return (
@@ -34,9 +22,7 @@ const Home = () => {
                 <Row>
                     <Col md = '8'>
                        <div className = 'p-2 my-2 rounded'>
-                            <BookFeed data = {data}/>
-                            <BookFeed data = {data}/>
-                            <BookFeed data = {data}/>
+                            <BookFeed />
                        </div>
                     </Col>
                     <Col md = '4'>

@@ -11,7 +11,6 @@ import {
 const Profile = () =>  {
     const [isLoading, setIsLoading] = useState(false);
     const [formData, setFormData] = useState({});
-    const [isEditing, setIsEditing] = useState(false);
     const alert = useAlert();
 
     useEffect(async () => {
@@ -20,7 +19,6 @@ const Profile = () =>  {
                 if (handleValidation(formData)) {
                     let res = await UserAgent.update(formData);
                     alert.show(res.msg);
-                    setIsEditing(false);
                 }
             } catch (e) {
                 alert.show(e.response.msg);

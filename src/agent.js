@@ -55,3 +55,8 @@ export const UserAgent = {
     register: data => agent('/secure/user/signup', data, 'post'),
     changePassword: data => agent('/secure/user/change-password', data, 'post')
 };
+
+export const BookAgent = {
+    getCatalog: data => agent('/secure/book/catalog', data, 'get'),
+    getDetails: data => agent('/secure/book/details', data, 'get')
+};
