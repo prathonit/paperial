@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {  useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
     Container, 
@@ -9,11 +9,17 @@ import {
     ToastBody,
     Button
 } from 'reactstrap';
+import ReviewFeed from './ReviewFeed';
+import CartView from './CartView.js';
 import StarRatingComponent from 'react-star-rating-component';
+import {
+    IoArrowBackSharp
+} from 'react-icons/io5';
 
-const BookFeedItem = (props) => {
+const BookDetailView = (props) => {
+    let [isOrdering, setIsOrdering] = useState(false);
     return (
-        <Toast style = {{maxWidth : 1000, height: 300}}>
+        <Toast style = {{maxWidth : '90%', padding: 10}}>
             <ToastBody style = {{fontSize: 24, padding: 0, height: '100%'}}>
                 <Container fluid style = {{margin: 0, padding: 0, height: '100%'}}>
                     <Row style = {{height : '100%'}}>
@@ -21,12 +27,13 @@ const BookFeedItem = (props) => {
                             backgroundImage: `url(${props.data.b_img})`,
                             backgroundRepeat: 'no-repeat',
                             backgroundSize: 'contain',
-                            backgroundPosition: 'center'
+                            backgroundPosition: 'center',
+                            maxHeight: 400
                         }}>
                             
                         </Col>
                         <Col md = '8' style = {{paddingTop: 10, paddingLeft: 0, fontSize: 14}}>
-                            <div className = 'book_intro' style = {{minHeight: 120, maxHeight: 120}}>
+                            <div className = 'book_intro' style = {{minHeight: 120}}>
                                 <h4 style = {{fontFamily: 'serif'}}>{props.data.b_name}</h4>
                                 <h6><i>{props.data.b_author}</i></h6>
                                 {props.data.b_desc}
@@ -44,8 +51,9 @@ const BookFeedItem = (props) => {
                             <Row>
                                 <Col md = '4'>
                                     <div style = {{fontSize: 25}}>
-                                    <StarRatingComponent 
-                                        editing = {false}
+                                    <StarRatingComponent
+                                        name= {props.b_id}
+                                        editing= {false}
                                         starCount={5}
                                         value={props.data.b_rating}
                                     />
@@ -56,7 +64,17 @@ const BookFeedItem = (props) => {
                                     {props.data.b_review_count} reviews
                                 </Col>
                             </Row>
-                            <Link to = {`/book/${props.data.b_id}`}><Button outline color = 'success'>Explore</Button></Link>
+                            <div hidden = {isOrdering}>
+                                <Button outline color = 'success' onClick = { () => setIsOrdering(true)}>Rent</Button>
+                            </div>
+                            <div hidden = {!isOrdering}>
+                                <CartView b_id = {props.b_id} />
+                                <Link onClick = {() => setIsOrdering(false)}><IoArrowBackSharp /> Cancel order </Link>
+                            </div>
+                            <hr/>
+                            <br />
+                            <h4>Reviews</h4>
+                            <ReviewFeed b_id = {props.b_id} />
                         </Col>
                     </Row>
                 </Container>
@@ -65,4 +83,4 @@ const BookFeedItem = (props) => {
     );
 };
 
-export default BookFeedItem;
+export default BookDetailView;

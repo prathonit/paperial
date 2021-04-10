@@ -39,7 +39,7 @@ const Profile = () =>  {
                     setIsEditing(false);
                 }
             } catch (e) {
-                alert.show(e.response.msg);
+                alert.show(e.response.data.msg);
             }
             setIsLoading(false);
         }

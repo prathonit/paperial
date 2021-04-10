@@ -16,7 +16,8 @@ import Home from './components/User/Home.js';
 import Profile from './components/User/Profile';
 import ChangePassword from './components/User/ChangePassword';
 import Search from './components/User/Search.js';
-
+import Book from './components/User/Book.js';
+import Order from './components/User/Order.js';
 
 export default function App() {
 	return (
@@ -33,6 +34,8 @@ export default function App() {
 					<PrivateRoute component = {Profile} path = '/user/profile' exact />
 					<PrivateRoute component = {ChangePassword} path = '/user/change-password' exact />
 					<PrivateRoute component = {Search} path = '/search' exact />
+					<PrivateRoute component = {Book} path = '/book/:b_id' />
+					<PrivateRoute component = {Order} path = '/orders' exact />
 				</Switch>
 			</div>
 			<Footer />

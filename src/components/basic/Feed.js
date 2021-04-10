@@ -29,7 +29,7 @@ const Feed = (props) => {
     useEffect(async () => {
         loadMore();
     }, []);
-
+    let i = 0;
     return (
         <InfiniteScroll
         dataLength={feedItems.length}
@@ -43,7 +43,7 @@ const Feed = (props) => {
         }
     >
         { feedItems.map(element => (
-            <div key = '10'>
+            <div key = {i++}>
                 <FeedItem data = {element} />
                 <br />
             </div>

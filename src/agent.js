@@ -60,3 +60,14 @@ export const BookAgent = {
     getCatalog: data => agent('/secure/book/catalog', data, 'get'),
     getDetails: data => agent('/secure/book/details', data, 'get')
 };
+
+export const ReviewAgent = {
+    getReviews: data => agent('/secure/review/feed', data, 'get'),
+    postReview: data => agent('/secure/review/post', data, 'post')
+};
+
+export const OrderAgent = {
+    placeOrder: data => agent('/secure/order/place', data, 'post'),
+    checkAvailability: data => agent('/secure/order/availability', data, 'get'),
+    getOrders: data => agent('/secure/order/my_orders', data, 'get')
+};
