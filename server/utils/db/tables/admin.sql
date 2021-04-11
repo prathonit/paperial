@@ -1,0 +1,7 @@
+CREATE TABLE `admin` (
+	`a_id` VARCHAR(128) NOT NULL,
+	`a_name` VARCHAR(256) NOT NULL,
+	`a_mail` VARCHAR(256) NOT NULL,
+	`a_perm` VARCHAR(128) NOT NULL,
+	PRIMARY KEY (`a_id`)
+) ENGINE=InnoDB;

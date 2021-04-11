@@ -1,0 +1,7 @@
+CREATE TABLE `order` (
+	`o_id` INT(9) NOT NULL AUTO_INCREMENT,
+	`o_state` INT(1) NOT NULL DEFAULT '1',
+	`iss_date` VARCHAR(128) NOT NULL,
+	`ret_date` VARCHAR(128) NOT NULL,
+	PRIMARY KEY (`o_id`)
+) ENGINE=InnoDB;
