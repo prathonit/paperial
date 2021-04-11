@@ -1,9 +1,0 @@
-CREATE TABLE `user` (
-	`u_id` VARCHAR(128) NOT NULL,
-	`u_name` VARCHAR(256) NOT NULL,
-	`u_mail` VARCHAR(256) NOT NULL,
-	`u_mob` VARCHAR(14),
-	`u_fine` FLOAT(10,2) NOT NULL DEFAULT '0',
-	`u_role` VARCHAR(128) NOT NULL,
-	PRIMARY KEY (`u_id`)
-) ENGINE=InnoDB;
