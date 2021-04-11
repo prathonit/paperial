@@ -18,6 +18,12 @@ import ChangePassword from './components/User/ChangePassword';
 import Search from './components/User/Search.js';
 import Book from './components/User/Book.js';
 import Order from './components/User/Order.js';
+import AdminBook from './components/Admin/Book.js';
+import AdminOrder from './components/Admin/Order.js';
+import AdminUser from './components/Admin/User.js';
+import AdminAddBook from './components/Admin/AddBook.js';
+import AdminCheckout from './components/Admin/Checkout.js';
+import AdminReturn from './components/Admin/Return.js';
 
 export default function App() {
 	return (
@@ -36,6 +42,13 @@ export default function App() {
 					<PrivateRoute component = {Search} path = '/search' exact />
 					<PrivateRoute component = {Book} path = '/book/:b_id' />
 					<PrivateRoute component = {Order} path = '/orders' exact />
+					<PrivateRoute component = {Order} path = '/orders' exact />
+					<PrivateRoute component = {AdminBook} path = '/admin/books' exact />
+					<PrivateRoute component = {AdminOrder} path = '/admin/orders' exact />
+					<PrivateRoute component = {AdminUser} path = '/admin/users' exact />
+					<PrivateRoute component = {AdminAddBook} path = '/admin/add-book' exact />
+					<PrivateRoute component = {AdminCheckout} path = '/admin/checkout' exact />
+					<PrivateRoute component = {AdminReturn} path = '/admin/return' exact />
 				</Switch>
 			</div>
 			<Footer />

@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Form, FormGroup, Input, Spinner } from 'reactstrap';
-import { AuthAgent } from '../agent.js';
+import { Link } from 'react-router-dom';
+import { AuthAgent } from '../../agent.js';
 import { useAlert } from 'react-alert';
 
-const AdminLogin = () =>  {
+const Checkout = () =>  {
     const [isLoading, setIsLoading] = useState(false);
     const [formData, setFormData] = useState({});
     const alert = useAlert();
@@ -12,10 +13,10 @@ const AdminLogin = () =>  {
         if (isLoading) {
             try {
                 if (handleValidation(formData)) {
-                    let res = await AuthAgent.loginAdmin(formData);
+                    let res = await AuthAgent.loginUser(formData);
                     localStorage.setItem('accessToken', res.data.accessToken);
                     alert.show('Logged in successfully');
-                    window.location = '/admin/books';
+                    window.location = '/home';
                 }
             } catch (e) {
                 alert.show('Incorrect username/password');
@@ -37,8 +38,8 @@ const AdminLogin = () =>  {
         }
     };
     const handleValidation = (data) => {
-        if (!data.a_id || data.a_id.length < 3) {
-            alert.show('Invalid admin username');
+        if (!data.u_id || data.u_id.length < 3) {
+            alert.show('Invalid username');
             return false;
         }
         if (!data.pwd || data.pwd.length < 3) {
@@ -51,21 +52,22 @@ const AdminLogin = () =>  {
         <div>
             <div className = 'container' style = {styles.formContainer}>
                 <Form onKeyDown = {handleKeySubmit}>
-                    <h2>Admin Login</h2>
+                    <h2>Checkout</h2>
                     <br/>
                     <FormGroup>
-                        <Input type="text" name="a_id" id="a_id" onChange = { handleInput } placeholder="Username"/>
+                        <Input type="text" name="u_id" onChange = { handleInput } placeholder="UserId"/>
                     </FormGroup>
                     <FormGroup>
-                        <Input type="password" name="pwd" id="pwd" onChange = {handleInput} placeholder="Password"/>
+                        <Input type="text" name="b_id" onChange = {handleInput} placeholder="BookId"/>
                     </FormGroup>
                     <FormGroup>
                         <Button color="success" onClick = {handleSubmit}>
                             <Spinner color = 'dark' size = 'sm' hidden = {!isLoading} />
-                            {(!isLoading) ? 'Login' : ''}
+                            {(!isLoading) ? 'Checkout' : ''}
                         </Button>
                     </FormGroup>
                     <hr/>
+                    <Link to='/admin/return'>Return instead</Link>
                 </Form>
             </div>
         </div>
@@ -79,4 +81,4 @@ let styles = {
     }
 };
 
-export default AdminLogin;
+export default Checkout;

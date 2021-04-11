@@ -1,11 +1,11 @@
 import React from 'react';
 import Feed from '../../basic/Feed.js';
 import BookFeedItem from './BookFeedItem.js';
-import { BookAgent } from '../../../agent.js';
+import { AdminAgent } from '../../../agent.js';
 
-const BookFeed = (props) => {
+const BookFeed = () => {
     const loadMore = async (itemCount, countOfItemsToLoad) => {
-        let res = await BookAgent.getCatalog({offset: itemCount, count: countOfItemsToLoad, categ: props.categ, sort: props.sort});
+        let res = await AdminAgent.getBooks({offset: itemCount, count: countOfItemsToLoad});
         if (res.data.length) {
             return res.data;
         } else {

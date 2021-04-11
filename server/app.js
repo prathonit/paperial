@@ -17,7 +17,7 @@ app.use(
 );
 app.use(cors());
 
-app.use('/static', express.static(__dirname + '/public'));
+app.use('/static', express.static(__dirname + '/local'));
 app.use('/', require('./routes/index.js'));
 
 // catch 404 and forward to error handler

@@ -2,12 +2,11 @@ const Joi = require('Joi');
 
 // define the schema of the router here 
 const schema = {
+	a_id: Joi.string().required(),
 	u_id: Joi.string().required(),
-	b_id: Joi.number().required(),
+	pwd: Joi.string().min(3).required(),
 	offset: Joi.number().required(),
-	count: Joi.number().required(),
-	categ: Joi.string().required(),
-	sort: Joi.string().required()
+	count: Joi.number().required()
 };
 
 module.exports = schema;

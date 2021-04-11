@@ -6,13 +6,26 @@ import {
     Toast, 
     ToastHeader, 
     ToastBody, 
-    Badge
+    Button
 } from 'reactstrap';
 import BookFeed from './user_components/BookFeed';
 import { GrFilter } from 'react-icons/gr';
 import { ImSortAmountDesc } from 'react-icons/im';
 
 const Home = () => {
+
+    const handleFilterChangeCateg = async (e) => {
+        e.preventDefault();
+        localStorage.setItem('categ', e.target.value);
+        window.location.reload();
+    };
+
+    const handleFilterChangeSort = async (e) => {
+        e.preventDefault();
+        localStorage.setItem('sort', e.target.value);
+        window.location.reload();
+    };
+
     return (
         <div>
             <div style={styles.banner}>
@@ -22,7 +35,7 @@ const Home = () => {
                 <Row>
                     <Col md = '8'>
                        <div className = 'p-2 my-2 rounded'>
-                            <BookFeed />
+                            <BookFeed categ = {localStorage.getItem('categ') || 'all'} sort = {localStorage.getItem('sort') || 'rating_dec'} />
                        </div>
                     </Col>
                     <Col md = '4'>
@@ -31,10 +44,12 @@ const Home = () => {
                             <ToastHeader>
                                 <GrFilter /> Filter by category
                             </ToastHeader>
-                            <ToastBody style = {{fontSize: 20}}>
-                                <Badge color = 'secondary'>Fiction</Badge>
-                                <Badge color = 'secondary'>Fiction</Badge>
-                                <Badge color = 'secondary'>Fiction</Badge>
+                            <ToastBody style = {{fontSize: 20}} id = 'filter'>
+                                <Button color = 'secondary' name = 'categ' value = 'all' onClick = {handleFilterChangeCateg}>All</Button>
+                                <Button color = 'secondary' name = 'categ' value = 'fiction' onClick = {handleFilterChangeCateg}>Fiction</Button>
+                                <Button color = 'secondary' name = 'categ' value = 'novel' onClick = {handleFilterChangeCateg}>Novel</Button>
+                                <Button color = 'secondary' name = 'categ' value = 'nonfiction' onClick = {handleFilterChangeCateg}>Non Fiction</Button>
+                                <Button color = 'secondary' name = 'categ' value = 'science' onClick = {handleFilterChangeCateg}>Science</Button>
                             </ToastBody>
                             </Toast>
                         </div>
@@ -43,10 +58,9 @@ const Home = () => {
                             <ToastHeader>
                                 <ImSortAmountDesc /> Sort by
                             </ToastHeader>
-                            <ToastBody style = {{fontSize: 20}}>
-                                <Badge color = 'secondary'>Rating</Badge>
-                                <Badge color = 'secondary'>Reads</Badge>
-                                <Badge color = 'secondary'>Fiction</Badge>
+                            <ToastBody style = {{fontSize: 20}} id = 'filter'>
+                                <Button color = 'secondary' name = 'sort' value = 'rating_inc' onClick = {handleFilterChangeSort}>Rating - Increasing order</Button>
+                                <Button color = 'secondary' name = 'sort' value = 'rating_dec' onClick = {handleFilterChangeSort}>Rating - Decreasing order</Button>
                             </ToastBody>
                             </Toast>
                         </div>

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Form, FormGroup, Input, Spinner } from 'reactstrap';
-import { AuthAgent } from '../agent.js';
+import { AuthAgent } from '../../agent.js';
 import { useAlert } from 'react-alert';
 
-const AdminLogin = () =>  {
+const Login = () =>  {
     const [isLoading, setIsLoading] = useState(false);
     const [formData, setFormData] = useState({});
     const alert = useAlert();
@@ -12,10 +12,10 @@ const AdminLogin = () =>  {
         if (isLoading) {
             try {
                 if (handleValidation(formData)) {
-                    let res = await AuthAgent.loginAdmin(formData);
+                    let res = await AuthAgent.loginUser(formData);
                     localStorage.setItem('accessToken', res.data.accessToken);
                     alert.show('Logged in successfully');
-                    window.location = '/admin/books';
+                    window.location = '/home';
                 }
             } catch (e) {
                 alert.show('Incorrect username/password');
@@ -37,8 +37,8 @@ const AdminLogin = () =>  {
         }
     };
     const handleValidation = (data) => {
-        if (!data.a_id || data.a_id.length < 3) {
-            alert.show('Invalid admin username');
+        if (!data.u_id || data.u_id.length < 3) {
+            alert.show('Invalid username');
             return false;
         }
         if (!data.pwd || data.pwd.length < 3) {
@@ -51,21 +51,26 @@ const AdminLogin = () =>  {
         <div>
             <div className = 'container' style = {styles.formContainer}>
                 <Form onKeyDown = {handleKeySubmit}>
-                    <h2>Admin Login</h2>
+                    <h2>Add book</h2>
                     <br/>
                     <FormGroup>
-                        <Input type="text" name="a_id" id="a_id" onChange = { handleInput } placeholder="Username"/>
+                        <Input type="text" name="b_name" onChange = { handleInput } placeholder="Book name"/>
                     </FormGroup>
                     <FormGroup>
-                        <Input type="password" name="pwd" id="pwd" onChange = {handleInput} placeholder="Password"/>
+                        <Input type="text" name="b_author" onChange = {handleInput} placeholder="Author name"/>
+                    </FormGroup>
+                    <FormGroup>
+                        <Input type="text" name="b_genre" onChange = { handleInput } placeholder="Book genre"/>
+                    </FormGroup>
+                    <FormGroup>
+                        <Input type="textarea" name="b_desc" onChange = {handleInput} placeholder="Description"/>
                     </FormGroup>
                     <FormGroup>
                         <Button color="success" onClick = {handleSubmit}>
                             <Spinner color = 'dark' size = 'sm' hidden = {!isLoading} />
-                            {(!isLoading) ? 'Login' : ''}
+                            {(!isLoading) ? 'Add book' : ''}
                         </Button>
                     </FormGroup>
-                    <hr/>
                 </Form>
             </div>
         </div>
@@ -79,4 +84,4 @@ let styles = {
     }
 };
 
-export default AdminLogin;
+export default Login;

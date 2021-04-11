@@ -8,7 +8,7 @@ router.use('/book', authorizeRequest('user', []), require('./book.js'));
 router.use('/review', authorizeRequest('user', []), require('./review.js'));
 router.use('/order', authorizeRequest('user', []), require('./order.js'));
 /* Only people with role admin can access these routes */
-
+router.use('/admin', authorizeRequest('admin', []), require('./admin.js'));
 
 
 module.exports = router;

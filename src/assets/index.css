@@ -20,3 +20,7 @@ code {
 .wrapper {
     min-height: calc(100vh - 140px);
 }
+
+#filter > * {
+    margin: 5px 3px;
+}

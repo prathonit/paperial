@@ -7,6 +7,6 @@ const bookController = reqlib('/controllers/book.js');
 router.get('/details', validateRequest('book', ['b_id'], 'get'), bookController.book_fetch_details_by_id);
 
 // get the feed/catalog of books
-router.get('/catalog', validateRequest('book', ['offset', 'count'], 'get'), bookController.book_fetch_catalog);
+router.get('/catalog', validateRequest('book', ['offset', 'count', 'categ', 'sort'], 'get'), bookController.book_fetch_catalog);
 
 module.exports = router;

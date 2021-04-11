@@ -71,3 +71,9 @@ export const OrderAgent = {
     checkAvailability: data => agent('/secure/order/availability', data, 'get'),
     getOrders: data => agent('/secure/order/my_orders', data, 'get')
 };
+
+export const AdminAgent = {
+    getBooks: data => agent('/secure/admin/books', data, 'get'),
+    getOrders: data => agent('/secure/admin/orders', data, 'get'),
+    getUsers: data => agent('/secure/admin/users', data, 'get')
+};

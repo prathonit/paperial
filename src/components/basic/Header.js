@@ -21,7 +21,11 @@ import {
 	IoBagOutline,
 	IoColorWandOutline,
 	IoTrophyOutline,
-	IoLockClosedOutline
+	IoLockClosedOutline,
+	IoBagCheckOutline,
+	IoReturnDownBackOutline,
+	IoAddCircleOutline,
+	IoInformationCircleOutline
 } from 'react-icons/io5';
 import { isLoggedIn } from '../../agent';
 
@@ -115,13 +119,75 @@ const HeaderUserLoggedIn = () => {
 	);
 };
 
+const HeaderAdminLoggedIn = () => {
+	const [isOpen, setIsOpen] = useState(false);
+	const toggle = () => setIsOpen(!isOpen);
+
+	let logout = () => {
+		localStorage.clear('accessToken');
+		window.location = '/';
+	};
+
+	return (
+		<div>
+			<Navbar color="light" light expand="md">
+				<NavbarBrand href="/admin/books">Paperial Admin</NavbarBrand>
+				<NavbarToggler onClick={toggle} />
+				<Collapse isOpen={isOpen} navbar>
+					<Nav className="mr-auto" navbar>
+						<NavItem>
+							<NavLink href="/admin/books"> <IoBookOutline /> Books</NavLink>
+						</NavItem>
+						<NavItem>
+							<NavLink href="/admin/orders"> <IoBagOutline /> Orders</NavLink>
+						</NavItem>
+						<NavItem>
+							<NavLink href="/admin/users"> <IoPersonSharp /> Users</NavLink>
+						</NavItem>
+						<NavItem>
+							<NavLink href="/admin/add-book"> <IoAddCircleOutline /> Add Book</NavLink>
+						</NavItem>
+						<NavItem>
+							<NavLink href="/admin/checkout"> <IoBagCheckOutline /> Checkout</NavLink>
+						</NavItem>
+						<NavItem>
+							<NavLink href="/admin/return"> <IoReturnDownBackOutline /> Return</NavLink>
+						</NavItem>
+						<NavItem>
+							<NavLink href="/admin/reports"> <IoInformationCircleOutline /> Generate report</NavLink>
+						</NavItem>
+					</Nav>
+					<Nav className="mr-right" navbar>
+						<UncontrolledDropdown nav inNavbar>
+							<DropdownToggle nav caret>
+								Options
+							</DropdownToggle>
+							<DropdownMenu right>
+								<Link to = '/admin/profile'>
+									<DropdownItem>
+										<IoPersonSharp /> Profile
+									</DropdownItem>
+								</Link>
+								<DropdownItem divider />
+								<DropdownItem onClick = {logout}>
+									Logout <IoLogOutOutline />
+								</DropdownItem>
+							</DropdownMenu>
+						</UncontrolledDropdown>
+					</Nav>
+				</Collapse>
+			</Navbar>
+		</div>
+	);
+};
+
 let roleLoggedIn = isLoggedIn();
 let Header = HeaderLoggedOut;
 
 if (roleLoggedIn === 'user') {
 	Header = HeaderUserLoggedIn;
 } else if (roleLoggedIn === 'admin') {
-	Header = HeaderLoggedOut;
+	Header = HeaderAdminLoggedIn;
 }
 
 
