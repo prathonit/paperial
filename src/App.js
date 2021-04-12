@@ -18,6 +18,8 @@ import ChangePassword from './components/User/ChangePassword';
 import Search from './components/User/Search.js';
 import Book from './components/User/Book.js';
 import Order from './components/User/Order.js';
+import Magic from './components/User/Magic.js';
+import LeaderBoard from './components/User/LeaderBoard';
 import AdminBook from './components/Admin/Book.js';
 import AdminOrder from './components/Admin/Order.js';
 import AdminUser from './components/Admin/User.js';
@@ -44,6 +46,8 @@ export default function App() {
 					<PrivateRoute component = {Book} path = '/book/:b_id' />
 					<PrivateRoute component = {Order} path = '/orders' exact />
 					<PrivateRoute component = {Order} path = '/orders' exact />
+					<PrivateRoute component = {Magic} path = '/magic' exact />
+					<PrivateRoute component = {LeaderBoard} path = '/leaderboard' exact />
 					<PrivateRoute component = {AdminBook} path = '/admin/books' exact />
 					<PrivateRoute component = {AdminOrder} path = '/admin/orders' exact />
 					<PrivateRoute component = {AdminUser} path = '/admin/users' exact />

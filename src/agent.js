@@ -58,7 +58,8 @@ export const UserAgent = {
 
 export const BookAgent = {
     getCatalog: data => agent('/secure/book/catalog', data, 'get'),
-    getDetails: data => agent('/secure/book/details', data, 'get')
+    getDetails: data => agent('/secure/book/details', data, 'get'),
+    getRecommendations: data => agent('/secure/book/magic', data, 'get')
 };
 
 export const ReviewAgent = {
@@ -69,7 +70,8 @@ export const ReviewAgent = {
 export const OrderAgent = {
     placeOrder: data => agent('/secure/order/place', data, 'post'),
     checkAvailability: data => agent('/secure/order/availability', data, 'get'),
-    getOrders: data => agent('/secure/order/my_orders', data, 'get')
+    getOrders: data => agent('/secure/order/my_orders', data, 'get'),
+    getLeaderBoard: data => agent('/secure/order/leaderboard', data, 'get')
 };
 
 export const AdminAgent = {

@@ -87,3 +87,28 @@ module.exports.order_get_orders_by_u_id = async (req, res, next) => {
         return next(e);
     }
 };
+
+module.exports.order_get_all_orders = async () => {
+    let sql = 'SELECT borrow.b_id, borrow.u_id FROM borrow ORDER BY borrow.b_id';
+    let params = [];
+    let result = await database.call(sql, params);
+    return result;
+};
+
+module.exports.order_get_leader_board = async (req, res, next) => {
+    let sql = 'SELECT user.u_id, user.u_name,COUNT(O.o_id) as booksRead FROM `order` O \
+               INNER JOIN borrow ON borrow.o_id = O.o_id \
+               INNER JOIN user ON borrow.u_id = user.u_id \
+               WHERE (O.iss_date BETWEEN ? AND ?) OR (O.ret_date BETWEEN ? AND ?) \
+               GROUP BY (user.u_id) ORDER BY booksRead DESC LIMIT 10 OFFSET 0';
+    let params = [moment().subtract(7,'d').format('YYYY/MM/DD'), moment().format('YYYY/MM/DD'), moment().subtract(7,'d').format('YYYY/MM/DD'), moment().format('YYYY/MM/DD')];
+    try {
+        let result = await database.call(sql, params);
+        result.forEach(user => {
+            user.u_img = `${config.HOST_URL}/static/user_default.png`;
+        });
+        response.success(res, result);
+    } catch (e) {
+        return next(e);
+    }
+};

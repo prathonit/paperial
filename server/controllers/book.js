@@ -78,7 +78,7 @@ module.exports.book_fetch_catalog = async (req, res, next) => {
 };
 
  module.exports.book_get_book_ratings = async () => {
-    let sql = 'SELECT book.b_id, COUNT(review.rating) as b_review_count, SUM(review.rating) as b_rating \
+    let sql = 'SELECT book.b_id, book.b_genre, COUNT(review.rating) as b_review_count, SUM(review.rating) as b_rating \
                FROM book LEFT JOIN (SELECT b_id, o_id, r_id FROM borrow) B ON book.b_id = B.b_id  \
                LEFT JOIN review ON B.r_id = review.r_id \
                GROUP BY book.b_id';
@@ -87,10 +87,22 @@ module.exports.book_fetch_catalog = async (req, res, next) => {
     let ratingArray = [];
     result.forEach(book => {
         let b_id = book.b_id;
+        let b_genre = book.b_genre;
         let rating_sum = book.b_rating || 0;
         let rating_count = book.b_review_count || 1;
         let b_rating = rating_sum / rating_count;
-        ratingArray[b_id] = b_rating;
+        ratingArray[b_id] = {b_rating: b_rating, b_genre: b_genre};
     });
     return ratingArray;
+};
+
+module.exports.book_fetch_from_list = async (idList) => {
+    let sql = 'SELECT book.* FROM book WHERE b_id IN (?)';
+    let params = [idList];
+    let result = await database.call(sql, params);
+    result.forEach(book => {
+        book.b_img = `${config.HOST_URL}/static/${book.b_id}.png`;
+        book.b_desc = book.b_desc.substr(0, 150);
+    });
+    return result;
 };

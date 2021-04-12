@@ -13,7 +13,10 @@ const schema = {
 	b_author: Joi.string().required(),
 	b_genre: Joi.string().required(),
 	b_desc: Joi.string().required(),
-	b_img: Joi.string().required()
+	b_img: Joi.string().required(),
+	u_mail: Joi.string().email().required(),
+	m_subject: Joi.string().required(),
+	m_body: Joi.string().required(),
 };
 
 module.exports = schema;

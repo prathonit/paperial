@@ -8,4 +8,7 @@ router.post('/place', validateRequest('order', ['u_id', 'b_id', 'from', 'to'], '
 router.get('/availability', validateRequest('order', ['b_id'], 'get'), orderController.order_get_future_orders);
 
 router.get('/my_orders', validateRequest('order', ['u_id', 'offset', 'count'], 'get'), orderController.order_get_orders_by_u_id);
+
+router.get('/leaderboard', validateRequest('order', [], 'get'), orderController.order_get_leader_board);
+
 module.exports = router;

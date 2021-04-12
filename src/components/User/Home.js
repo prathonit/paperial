@@ -47,8 +47,8 @@ const Home = () => {
                             <ToastBody style = {{fontSize: 20}} id = 'filter'>
                                 <Button color = 'secondary' name = 'categ' value = 'all' onClick = {handleFilterChangeCateg}>All</Button>
                                 <Button color = 'secondary' name = 'categ' value = 'fiction' onClick = {handleFilterChangeCateg}>Fiction</Button>
-                                <Button color = 'secondary' name = 'categ' value = 'novel' onClick = {handleFilterChangeCateg}>Novel</Button>
-                                <Button color = 'secondary' name = 'categ' value = 'nonfiction' onClick = {handleFilterChangeCateg}>Non Fiction</Button>
+                                <Button color = 'secondary' name = 'categ' value = 'non_fiction' onClick = {handleFilterChangeCateg}>Non fiction</Button>
+                                <Button color = 'secondary' name = 'categ' value = 'biography' onClick = {handleFilterChangeCateg}>Biography</Button>
                                 <Button color = 'secondary' name = 'categ' value = 'science' onClick = {handleFilterChangeCateg}>Science</Button>
                             </ToastBody>
                             </Toast>
