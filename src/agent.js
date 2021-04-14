@@ -59,7 +59,8 @@ export const UserAgent = {
 export const BookAgent = {
     getCatalog: data => agent('/secure/book/catalog', data, 'get'),
     getDetails: data => agent('/secure/book/details', data, 'get'),
-    getRecommendations: data => agent('/secure/book/magic', data, 'get')
+    getRecommendations: data => agent('/secure/book/magic', data, 'get'),
+    getSearchResult: data => agent('/secure/book/search', data, 'get')
 };
 
 export const ReviewAgent = {

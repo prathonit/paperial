@@ -19,5 +19,6 @@ router.get('/magic', validateRequest('book', ['u_id'], 'get'), async (req, res, 
         return next(e);
     }
 });
+router.get('/search',validateRequest('book',[],'get'),bookController.book_search);
 
 module.exports = router;
