@@ -20,8 +20,13 @@ app.use(
 );
 app.use(cors());
 
-app.use('/static', express.static(__dirname + '/local'));
+app.use('/static', express.static(path.join(__dirname, 'local')));
 app.use('/', require('./routes/index.js'));
+
+app.use(express.static(path.join(__dirname, '../build')));
+app.use('/*', (req, res) => {
+	res.sendFile(path.join(__dirname, '../build', 'index.html'));
+});
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
