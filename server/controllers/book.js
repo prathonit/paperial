@@ -106,3 +106,45 @@ module.exports.book_fetch_from_list = async (idList) => {
     });
     return result;
 };
+module.exports.book_search = async (req, res, next) => {
+    let search_query = req.query.search_query;
+    let search_category = req.query.searchType;
+    let sort = "rating_dec";
+    try{
+        let sql=    "SELECT book.*, COUNT(review.rating) as b_review_count, SUM(review.rating) as b_rating, \
+                    NOT (SELECT COUNT(order.o_id) FROM `order` INNER JOIN borrow ON order.o_id = borrow.o_id \
+                    WHERE order.o_state != 0 AND iss_date <= ? AND ret_date >= ?) as b_avail\
+                    FROM book LEFT JOIN (SELECT b_id, o_id, r_id FROM borrow) B ON book.b_id = B.b_id  \
+                    LEFT JOIN review ON B.r_id = review.r_id \
+                    WHERE ((?? LIKE ? ))\
+                    GROUP BY book.b_id \
+                    LIMIT 10";
+        let params = [moment().format('YYYY/MM/DD'), moment().format('YYYY/MM/DD'), `book.${search_category}`, `%${search_query}%`];
+        let bookList = await database.call(sql, params);
+        console.log(bookList);
+        let ratingMap = new Array(6);
+        for (let i=0; i<=5; i++) {
+            ratingMap[i] = [];
+        }
+        bookList.forEach(book =>  {
+            book.b_img = `${config.HOST_URL}/static/${book.b_id}.png`;
+            book.b_rating /= book.b_review_count;
+            book.b_rating ||= 0;
+            book.b_desc = book.b_desc.substr(0, 200);
+            ratingMap[book.b_rating].push(book);
+        });
+        let outputResult = [];
+        if (sort === 'rating_dec') {
+            for (let i=5; i>=0; i--) {
+                outputResult = outputResult.concat(ratingMap[i]);
+            }
+        } else {
+            for (let i=0; i<=5; i++) {
+                outputResult = outputResult.concat(ratingMap[i]);
+            }
+        }
+        response.success(res, outputResult);
+        } catch (e) {
+                return next(e);
+        }
+};
