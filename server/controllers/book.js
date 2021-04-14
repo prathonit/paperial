@@ -20,6 +20,7 @@ module.exports.book_fetch_details_by_id = async (req, res, next) => {
         bookDetails.forEach(book =>  {
             book.b_img = `${config.HOST_URL}/static/${book.b_id}.png`;
             book.b_rating /= book.b_review_count;
+            book.b_rating = Math.round(book.b_rating);
         });
         if (bookDetails.length) {
             response.success(res, bookDetails[0]);
@@ -58,6 +59,7 @@ module.exports.book_fetch_catalog = async (req, res, next) => {
             book.b_img = `${config.HOST_URL}/static/${book.b_id}.png`;
             book.b_rating /= book.b_review_count;
             book.b_rating ||= 0;
+            book.b_rating = Math.round(book.b_rating);
             book.b_desc = book.b_desc.substr(0, 200);
             ratingMap[book.b_rating].push(book);
         });
@@ -91,6 +93,7 @@ module.exports.book_fetch_catalog = async (req, res, next) => {
         let rating_sum = book.b_rating || 0;
         let rating_count = book.b_review_count || 1;
         let b_rating = rating_sum / rating_count;
+        b_rating = Math.round(b_rating);
         ratingArray[b_id] = {b_rating: b_rating, b_genre: b_genre};
     });
     return ratingArray;
@@ -130,6 +133,7 @@ module.exports.book_search = async (req, res, next) => {
             book.b_img = `${config.HOST_URL}/static/${book.b_id}.png`;
             book.b_rating /= book.b_review_count;
             book.b_rating ||= 0;
+            book.b_rating = Math.round(book.b_rating);
             book.b_desc = book.b_desc.substr(0, 200);
             ratingMap[book.b_rating].push(book);
         });
