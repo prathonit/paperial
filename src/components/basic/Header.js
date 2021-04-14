@@ -163,12 +163,6 @@ const HeaderAdminLoggedIn = () => {
 								Options
 							</DropdownToggle>
 							<DropdownMenu right>
-								<Link to = '/admin/profile'>
-									<DropdownItem>
-										<IoPersonSharp /> Profile
-									</DropdownItem>
-								</Link>
-								<DropdownItem divider />
 								<DropdownItem onClick = {logout}>
 									Logout <IoLogOutOutline />
 								</DropdownItem>

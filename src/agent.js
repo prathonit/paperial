@@ -82,5 +82,6 @@ export const AdminAgent = {
     getReport: data => agent('/secure/admin/reports', data, 'get'),
     addBook: data => agent('/secure/admin/add_book', data, 'post'),
     checkoutBook: data => agent('/secure/admin/checkout', data, 'post'),
-    returnBook: data => agent('/secure/admin/return', data, 'post')
+    returnBook: data => agent('/secure/admin/return', data, 'post'),
+    mail: data => agent('/secure/admin/mail', data, 'post')
 };

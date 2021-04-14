@@ -17,7 +17,7 @@ let prepareOrderMap = (orders) => {
 
 let prepareGenreMap = (orders, u_id, books) => {
     let genreMap = {};
-    let userReads = orders[u_id];
+    let userReads = orders[u_id] || [];
     userReads.forEach(b_id => {
         let genre = books[b_id].b_genre;
         genreMap[genre] = genreMap[genre] || 0;
@@ -62,12 +62,14 @@ let main = async (u_id) => {
         if (user === u_id) {
             continue;
         }
+        orderMap[u_id] = orderMap[u_id] || [];
+        userReads = userReads || [];
         let result = findMatch(orderMap[u_id], userReads);
         let similarity = result[0];
         let suggestedBooks = result[1];
         suggestedBooks.forEach(b_id => {
             suggestions[b_id] = suggestions[b_id] || 0;
-            suggestions[b_id] = (books[b_id].b_rating + genreMap[books[b_id].b_genre]) * similarity;
+            suggestions[b_id] = (books[b_id].b_rating + genreMap[books[b_id].b_genre] + 1) * similarity;
         });
     }
     let suggestionsList = [];

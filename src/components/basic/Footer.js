@@ -4,7 +4,10 @@ class Footer extends React.Component {
     render() {
         return (
             <div style = {styles.footer}>
+                Find the project on: <a href = 'https://github.com/prathonit/paperial'>Github</a>
+                <br />
                 <p>Paperial &copy; 2021</p>
+                <br />
             </div>);
     }
 }
