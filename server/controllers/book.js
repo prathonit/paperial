@@ -118,7 +118,7 @@ module.exports.book_search = async (req, res, next) => {
                     LEFT JOIN review ON B.r_id = review.r_id \
                     WHERE ((?? LIKE ? ))\
                     GROUP BY book.b_id \
-                    LIMIT 10";
+                    LIMIT 100";
         let params = [moment().format('YYYY/MM/DD'), moment().format('YYYY/MM/DD'), `book.${search_category}`, `%${search_query}%`];
         let bookList = await database.call(sql, params);
         console.log(bookList);
