@@ -16,7 +16,7 @@ router.get('/magic', validateRequest('book', ['u_id'], 'get'), async (req, res, 
         let result = await magic(req.query.u_id);
         response.success(res, result);
     } catch (e) {
-        return next(e);
+        response.success(res, []);
     }
 });
 router.get('/search',validateRequest('book',[],'get'),bookController.book_search);

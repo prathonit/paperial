@@ -28,6 +28,7 @@ import {
 	IoInformationCircleOutline
 } from 'react-icons/io5';
 import { isLoggedIn } from '../../agent';
+import ThemeSwitch from './ThemeSwitch.js';
 
 const HeaderLoggedOut = () => {
 	const [isOpen, setIsOpen] = useState(false);
@@ -107,6 +108,10 @@ const HeaderUserLoggedIn = () => {
 									</DropdownItem>
 								</Link>
 								<DropdownItem divider />
+								<DropdownItem>
+									<ThemeSwitch />
+								</DropdownItem>
+								<DropdownItem divider />
 								<DropdownItem onClick = {logout}>
 									Logout <IoLogOutOutline />
 								</DropdownItem>
@@ -163,6 +168,11 @@ const HeaderAdminLoggedIn = () => {
 								Options
 							</DropdownToggle>
 							<DropdownMenu right>
+								<DropdownItem divider />
+								<DropdownItem>
+									<ThemeSwitch />
+								</DropdownItem>
+								<DropdownItem divider />
 								<DropdownItem onClick = {logout}>
 									Logout <IoLogOutOutline />
 								</DropdownItem>

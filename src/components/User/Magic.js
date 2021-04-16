@@ -19,7 +19,7 @@ const Magic = () =>  {
                     setIsLoading(false);
                 }, 4000);
             } catch (e) {
-                alert.show(e.response.msg);
+                alert.show(e.response.data.msg);
                 setIsLoading(false);
             }
         }

@@ -1,4 +1,4 @@
-const Joi = require('Joi');
+const Joi = require('joi');
 const createError = require('http-errors');
 
 const validateRequest = (routerName, requiredParams = [], reqType = 'get') => {

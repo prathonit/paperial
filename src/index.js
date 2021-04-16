@@ -4,6 +4,9 @@ import './assets/index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
+if (localStorage.getItem('theme') && localStorage.getItem('theme') === 'dark') {
+	require('./assets/main-page-dark-css.css');
+}
 import { transitions, positions, Provider as AlertProvider } from 'react-alert';
 import AlertTemplate from 'react-alert-template-basic';
 
