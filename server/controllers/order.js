@@ -20,14 +20,23 @@ module.exports.order_place_order = async (req, res, next) => {
         if (from > to) {
             throw createError(400, 'From cannot be greater than to');
         }
-        let sql = 'SELECT NOT COUNT(order.o_id) as isValid FROM `order` \
-                   INNER JOIN borrow ON order.o_id = borrow.b_id \
-                   WHERE ? <= order.ret_date AND ? >= order.iss_date AND order.o_state != 0 AND borrow.b_id = ?';
-        let params = [from, to, b_id];
+        let sql = '', params = [];
+        sql = 'SELECT NOT COUNT(order.o_id) as isValid FROM `order` \
+                   INNER JOIN borrow ON order.o_id = borrow.o_id AND borrow.b_id = ? \
+                   WHERE ? <= order.ret_date AND ? >= order.iss_date AND order.o_state != 0';
+        params = [b_id, from, to];
         let result = await database.call(sql, params);
         let isValid = result[0].isValid;
         if (!isValid) {
             throw createError(400, 'Book not available in this period');
+        }
+        sql = 'SELECT COUNT(O.o_id) as order_count FROM `order` O \
+                   INNER JOIN borrow ON O.o_id = borrow.o_id AND borrow.u_id = ? \
+                   WHERE O.o_state != 0';
+        params = [u_id];
+        let orderCountResult = await database.call(sql, params);
+        if (orderCountResult[0].order_count > 2) {
+            throw createError(400, 'Cannot have more that two active orders');
         }
         sql = 'INSERT INTO `order` SET ?';
         params = [{

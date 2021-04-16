@@ -132,7 +132,7 @@ module.exports.book_search = async (req, res, next) => {
         bookList.forEach(book =>  {
             book.b_img = `${config.HOST_URL}/static/${book.b_id}.png`;
             book.b_rating /= book.b_review_count;
-            book.b_rating ||= 0;
+            book.b_rating = book.b_rating || 0;
             book.b_rating = Math.round(book.b_rating);
             book.b_desc = book.b_desc.substr(0, 200);
             ratingMap[book.b_rating].push(book);

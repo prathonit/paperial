@@ -166,8 +166,8 @@ module.exports.admin_return_book = async (req, res, next) => {
     let u_id = req.body.u_id;
 
     let sql = 'SELECT O.o_id FROM `order` O INNER JOIN track ON track.o_id = O.o_id \
-               AND track.b_id = ? AND track.u_id = ? WHERE O.iss_date <= ? AND O.ret_date >= ? AND O.o_state != 0';
-    let params = [b_id, u_id, moment().format('YYYY/MM/DD'), moment().format('YYYY/MM/DD')];
+               AND track.b_id = ? AND track.u_id = ? WHERE O.iss_date <= ? AND O.o_state != 0';
+    let params = [b_id, u_id, moment().format('YYYY/MM/DD')];
     try {
         let result = await database.call(sql, params);
         let isValid = result.length;
