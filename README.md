@@ -1,5 +1,5 @@
 # Paperial : Library Management System
-Done as part of Database Sytems CS F212 Project. 
+Done as part of Database Systems CS F212 Project. 
 
 Hosted on [paperial.ml](https://paperial.ml)
 # Features: 
