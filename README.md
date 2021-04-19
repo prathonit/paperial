@@ -53,4 +53,8 @@ Hosted on [paperial.ml](https://paperial.ml)
   ```
 # Contributors: 
 [Samarth Jain](https://github.com/BOISaMmY)
+
+# Further development and known issues:
+- Better and scalable system for giving recommendations. 
+- Optimizing view for smaller screens.
   
